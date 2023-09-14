@@ -16,7 +16,7 @@ export class App extends Component {
   };
   SubmitValue = e => {
     this.setState({
-      searchText: `${Date.now()}/${e.target.elements.search.value.toLowerCase()}`,
+      textSearch: `${Date.now()}/${e.target.elements.search.value.toLowerCase()}`,
       image: [],
       page: 1,
     });
@@ -24,7 +24,7 @@ export class App extends Component {
   async componentDidUpdate(prevProps, prevState) {
     try {
       this.setState({ loading: true });
-      const Img = await getImg(this.state.searchText, this.state.page);
+      const Img = await getImg(this.state.textSearch, this.state.page);
       this.setState(prevState => ({
         image: [...prevState.image, ...Img.hits],
       }));
