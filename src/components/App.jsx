@@ -22,17 +22,20 @@ export class App extends Component {
     });
   };
   async componentDidUpdate(prevProps, prevState) {
-    try {
-      this.setState({ loading: true });
-      const Img = await getImg(this.state.textSearch, this.state.page);
-      this.setState(prevState => ({
-        image: [...prevState.image, ...Img.hits],
-      }));
-    } catch (error) {
-      console.log(error);
-    } finally {
-      this.setState({ loading: false });
-      console.log(3);
+    if (prevState.textSearch !== this.state.textSearch) {
+      try {
+        this.setState({ loading: true });
+        const img = await getImg(this.state.textSearch, this.state.page);
+        this.setState(prevState => ({
+          image: [...prevState.image, ...img.hits],
+          maxPages: Math.round(img.totalHits / 12),
+        }));
+      } catch (error) {
+        console.log(error);
+      } finally {
+        this.setState({ loading: false });
+        console.log(3);
+      }
     }
   }
   render() {
@@ -43,7 +46,7 @@ export class App extends Component {
         <Searchbar SubmitValue={this.SubmitValue} />
         {image.length > 0 && <ImageGallery imagePac={image} />}
 
-        <Button />
+        {image.length > 0 && <Button />}
         {loading && <Loader />}
         <GlobalStyle />
       </div>
