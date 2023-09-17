@@ -4,7 +4,7 @@ import { ImageGallery } from './ImageGallery/ImageGallery';
 import { getImg } from './Api/api';
 import { Searchbar } from './Searchbar/Searchbar';
 import { Component } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
+
 import { Loader } from './Loader/Loader';
 import { Modal } from './Modal';
 export class App extends Component {
@@ -70,7 +70,6 @@ export class App extends Component {
         {image.length > 0 && <LoadMore onLoadeMore={this.onLoadeMore} />}
         <Loader loading={loading} />
         <GlobalStyle />
-        <Toaster />
       </div>
     );
   }
