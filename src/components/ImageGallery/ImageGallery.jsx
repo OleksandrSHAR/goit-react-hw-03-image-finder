@@ -1,11 +1,13 @@
-import { ImageGalleryItem } from './ImageGalleryItem';
+import { ImageGalleryItem } from './ImegeGalleryItem/ImageGalleryItem';
+import { ImgGallery } from './ImegeGellery.style';
 
-export const ImageGallery = ({ imagePac }) => {
+export const ImageGallery = ({ imagePac, onClickImg }) => {
   return (
     <div>
-      <ul>
+      <ImgGallery>
         {imagePac.map(({ id, largeImageURL, webformatURL, tags }) => (
           <ImageGalleryItem
+            onClickImg={onClickImg}
             key={id}
             id={id}
             webformatURL={webformatURL}
@@ -13,7 +15,7 @@ export const ImageGallery = ({ imagePac }) => {
             tags={tags}
           />
         ))}
-      </ul>
+      </ImgGallery>
     </div>
   );
 };

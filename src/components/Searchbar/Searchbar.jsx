@@ -1,5 +1,11 @@
 import { Component } from 'react';
 import Notiflix from 'notiflix';
+import {
+  SearcWrap,
+  SearchForm,
+  SearchFormButton,
+  SearchFormInput,
+} from './Seaechbar.style';
 export class Searchbar extends Component {
   state = { input: '' };
   onInput = ({ target }) => {
@@ -15,13 +21,13 @@ export class Searchbar extends Component {
   };
   render() {
     return (
-      <header class="searchbar">
-        <form onSubmit={this.onSubmit} class="form">
-          <button type="submit" class="button">
+      <SearcWrap class="searchbar">
+        <SearchForm onSubmit={this.onSubmit} class="form">
+          <SearchFormButton type="submit" class="button">
             <span class="button-label">Search</span>
-          </button>
+          </SearchFormButton>
 
-          <input
+          <SearchFormInput
             onChange={this.onInput}
             value={this.state.input}
             name="search"
@@ -30,8 +36,8 @@ export class Searchbar extends Component {
             autofocus
             placeholder="Search images and photos"
           />
-        </form>
-      </header>
+        </SearchForm>
+      </SearcWrap>
     );
   }
 }
