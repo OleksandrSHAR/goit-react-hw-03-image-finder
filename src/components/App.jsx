@@ -50,7 +50,7 @@ export class App extends Component {
     console.log(e);
     this.prevState({
       modal: true,
-      modalUrl: e.largeImageURL,
+      modalUrl: e.webformatURL,
       modalAlt: e.tags,
     });
   };
