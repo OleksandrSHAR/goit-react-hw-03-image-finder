@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import Notiflix from 'notiflix';
+import { toast } from 'react-hot-toast';
 import {
   SearcWrap,
   SearchForm,
@@ -14,16 +14,16 @@ export class Searchbar extends Component {
   onSubmit = e => {
     e.preventDefault();
     if (e.target.elements.search.value === '') {
-      Notiflix.Notify.warning('Memento te hominem esse');
+      toast.error('Memento te hominem esse');
       return;
     }
     this.props.SubmitValue(e);
   };
   render() {
     return (
-      <SearcWrap class="searchbar">
-        <SearchForm onSubmit={this.onSubmit} class="form">
-          <SearchFormButton type="submit" class="button">
+      <SearcWrap>
+        <SearchForm onSubmit={this.onSubmit} className="form">
+          <SearchFormButton type="submit">
             <span class="button-label">Search</span>
           </SearchFormButton>
 

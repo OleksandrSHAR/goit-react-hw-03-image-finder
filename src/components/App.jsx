@@ -4,7 +4,7 @@ import { ImageGallery } from './ImageGallery/ImageGallery';
 import { getImg } from './Api/api';
 import { Searchbar } from './Searchbar/Searchbar';
 import { Component } from 'react';
-
+import { toast } from 'react-hot-toast';
 import { Loader } from './Loader/Loader';
 import { Modal } from './Modal/Modal';
 export class App extends Component {
@@ -12,7 +12,7 @@ export class App extends Component {
     image: [],
     page: 1,
     textSearch: '',
-    maxPages: 0,
+
     error: false,
     loading: false,
     modal: false,
@@ -25,6 +25,7 @@ export class App extends Component {
       image: [],
       page: 1,
     });
+    console.log(e.target.elements.search.value);
   };
   async componentDidUpdate(prevProps, prevState) {
     if (
@@ -34,24 +35,24 @@ export class App extends Component {
       try {
         this.setState({ loading: true, error: false });
         const img = await getImg(this.state.textSearch, this.state.page);
+        console.log(img);
         this.setState(prev => ({
           image: [...prev.image, ...img.hits],
-          maxPages: Math.round(img.totalHits / 12),
         }));
+        if (prevState.page === this.state.page) {
+          toast.success(`You have ${img.totalHits} images`);
+        }
       } catch (error) {
         this.setState({ error: true });
       } finally {
         this.setState({ loading: false });
       }
-      console.log(this.state.loading);
     }
   }
   onClickImg = e => {
     const imgMod = this.state.image.filter(
       img => img.webformatURL === e.target.src
     );
-    console.log(e);
-    console.log(imgMod);
 
     this.setState({
       modal: true,
@@ -67,7 +68,7 @@ export class App extends Component {
   };
   render() {
     const { image, loading, modal, modalUrl, modalAlt } = this.state;
-    console.log(modalUrl);
+
     return (
       <div>
         <Searchbar SubmitValue={this.SubmitValue} />

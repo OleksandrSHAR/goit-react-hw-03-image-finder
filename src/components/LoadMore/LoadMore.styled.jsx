@@ -10,6 +10,7 @@ export const LoadMoreBut = styled.button`
   color: #fff;
   border: 0;
   text-decoration: none;
+  margin-top: 20px;
   cursor: pointer;
   font-family: inherit;
   font-size: 18px;
