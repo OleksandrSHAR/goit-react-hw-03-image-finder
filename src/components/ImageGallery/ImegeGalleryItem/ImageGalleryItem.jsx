@@ -8,13 +8,8 @@ export const ImageGalleryItem = ({
   largeImageURL,
 }) => {
   return (
-    <ImgGalleryItem
-      onClick={() => onClickImg(tags, largeImageURL)}
-      key={id}
-      id={id}
-      class="gallery-item"
-    >
-      <ImgItem src={webformatURL} alt={tags} />
+    <ImgGalleryItem key={id} id={id} class="gallery-item">
+      <ImgItem src={webformatURL} alt={tags} onClick={onClickImg} />
     </ImgGalleryItem>
   );
 };

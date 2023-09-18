@@ -6,7 +6,7 @@ import { Searchbar } from './Searchbar/Searchbar';
 import { Component } from 'react';
 
 import { Loader } from './Loader/Loader';
-import { Modal } from './Modal';
+import { Modal } from './Modal/Modal';
 export class App extends Component {
   state = {
     image: [],
@@ -47,26 +47,40 @@ export class App extends Component {
     }
   }
   onClickImg = e => {
+    const imgMod = this.state.image.filter(
+      img => img.webformatURL === e.target.src
+    );
     console.log(e);
-    this.prevState({
+    console.log(imgMod);
+
+    this.setState({
       modal: true,
-      modalUrl: e.webformatURL,
-      modalAlt: e.tags,
+      modalUrl: imgMod[0].largeImageURL,
+      modalAlt: imgMod[0].tags,
     });
+  };
+  onCloseModal = e => {
+    this.setState({ modal: false });
   };
   onLoadeMore = () => {
     this.setState(prevState => ({ page: prevState.page + 1 }));
   };
   render() {
     const { image, loading, modal, modalUrl, modalAlt } = this.state;
-
+    console.log(modalUrl);
     return (
       <div>
         <Searchbar SubmitValue={this.SubmitValue} />
         {image.length > 0 && (
           <ImageGallery imagePac={image} onClickImg={this.onClickImg} />
         )}
-        {modal && <Modal imageURL={modalUrl} imegeALT={modalAlt} />}
+        {modal && (
+          <Modal
+            modalUrl={modalUrl}
+            modalAlt={modalAlt}
+            onCloseModal={this.onCloseModal}
+          />
+        )}
         {image.length > 0 && <LoadMore onLoadeMore={this.onLoadeMore} />}
         <Loader loading={loading} />
         <GlobalStyle />
