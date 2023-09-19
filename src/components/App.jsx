@@ -35,7 +35,7 @@ export class App extends Component {
       try {
         this.setState({ loading: true, error: false });
         const img = await getImg(this.state.textSearch, this.state.page);
-        console.log(img);
+
         this.setState(prev => ({
           image: [...prev.image, ...img.hits],
         }));
@@ -61,7 +61,9 @@ export class App extends Component {
     });
   };
   onCloseModal = e => {
-    this.setState({ modal: false });
+    if (e.target === e.currentTarget || e.code === `Escape`) {
+      this.setState({ modal: false });
+    }
   };
   onLoadeMore = () => {
     this.setState(prevState => ({ page: prevState.page + 1 }));

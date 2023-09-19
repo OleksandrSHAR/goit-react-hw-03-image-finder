@@ -14,7 +14,7 @@ export class Searchbar extends Component {
   onSubmit = e => {
     e.preventDefault();
     if (e.target.elements.search.value === '') {
-      toast.error('Memento te hominem esse');
+      toast.error('The search field cannot be empty');
       return;
     }
     this.props.SubmitValue(e);
@@ -22,9 +22,9 @@ export class Searchbar extends Component {
   render() {
     return (
       <SearcWrap>
-        <SearchForm onSubmit={this.onSubmit} className="form">
+        <SearchForm onSubmit={this.onSubmit}>
           <SearchFormButton type="submit">
-            <span class="button-label">Search</span>
+            <span>Search</span>
           </SearchFormButton>
 
           <SearchFormInput
@@ -32,8 +32,6 @@ export class Searchbar extends Component {
             value={this.state.input}
             name="search"
             type="text"
-            autocomplete="off"
-            autofocus
             placeholder="Search images and photos"
           />
         </SearchForm>
