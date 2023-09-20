@@ -84,7 +84,7 @@ export class App extends Component {
             onCloseModal={this.onCloseModal}
           />
         )}
-        {image.length > 0 && <LoadMore onLoadeMore={this.onLoadeMore} />}
+        {image.length >= 12 && <LoadMore onLoadeMore={this.onLoadeMore} />}
         <Loader loading={loading} />
         <GlobalStyle />
       </div>
