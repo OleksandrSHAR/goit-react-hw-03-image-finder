@@ -12,7 +12,7 @@ export class App extends Component {
     image: [],
     page: 1,
     textSearch: '',
-
+    maxPages: 0,
     error: false,
     loading: false,
     modal: false,
@@ -38,6 +38,7 @@ export class App extends Component {
 
         this.setState(prev => ({
           image: [...prev.image, ...img.hits],
+          maxPages: Math.round(img.totalHits / 12),
         }));
         if (prevState.page === this.state.page) {
           toast.success(`You have ${img.totalHits} images`);
@@ -69,7 +70,8 @@ export class App extends Component {
     this.setState(prevState => ({ page: prevState.page + 1 }));
   };
   render() {
-    const { image, loading, modal, modalUrl, modalAlt } = this.state;
+    const { image, loading, modal, modalUrl, modalAlt, page, maxPages } =
+      this.state;
 
     return (
       <div>
@@ -84,7 +86,9 @@ export class App extends Component {
             onCloseModal={this.onCloseModal}
           />
         )}
-        {image.length >= 12 && <LoadMore onLoadeMore={this.onLoadeMore} />}
+        {image.length > 0 && page !== maxPages && (
+          <LoadMore onLoadeMore={this.onLoadeMore} />
+        )}
         <Loader loading={loading} />
         <GlobalStyle />
       </div>
